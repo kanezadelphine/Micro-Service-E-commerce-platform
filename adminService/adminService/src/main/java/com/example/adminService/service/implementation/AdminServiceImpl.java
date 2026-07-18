@@ -1,9 +1,11 @@
 package com.example.adminService.service.implementation;
 
 import com.example.adminService.client.InventoryServiceClient;
+import com.example.adminService.client.ProductServiceClient;
 import com.example.adminService.client.UserServiceClient;
 import com.example.adminService.dto.DashboardDto;
 import com.example.adminService.dto.InvatoryDto;
+import com.example.adminService.dto.ProductDto;
 import com.example.adminService.dto.UserDto;
 import com.example.adminService.service.AdminService;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,15 @@ public class AdminServiceImpl implements AdminService {
 
     private final UserServiceClient userClient;
     private final InventoryServiceClient inventoryClient;
+    private final ProductServiceClient productClient;
 
     public AdminServiceImpl(UserServiceClient userClient,
-                            InventoryServiceClient inventoryClient) {
+                            InventoryServiceClient inventoryClient,
+                            ProductServiceClient productClient) {
 
         this.userClient = userClient;
         this.inventoryClient = inventoryClient;
+        this.productClient = productClient;
     }
 
     @Override
@@ -72,6 +77,7 @@ public class AdminServiceImpl implements AdminService {
         return userClient.getAllUsers();
     }
 
+    //DashBoard
     @Override
     public DashboardDto dashboard() {
 
@@ -79,7 +85,35 @@ public class AdminServiceImpl implements AdminService {
 
         dto.setUsers(userClient.getAllUsers());
         dto.setInventory(inventoryClient.getAllInventory());
+        dto.setProducts(productClient.getAllProducts());
 
         return dto;
+    }
+
+    // products
+
+    @Override
+    public List<ProductDto> products() {
+        return productClient.getAllProducts();
+    }
+
+    @Override
+    public ProductDto getProduct(Long id) {
+        return productClient.getProduct(id);
+    }
+
+    @Override
+    public ProductDto createProduct(ProductDto dto) {
+        return productClient.createProduct(dto);
+    }
+
+    @Override
+    public ProductDto updateProduct(Long id, ProductDto dto) {
+        return productClient.updateProduct(id, dto);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productClient.deleteProduct(id);
     }
 }

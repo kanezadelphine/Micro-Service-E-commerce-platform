@@ -12,4 +12,7 @@ public class DashboardDto {
 
     private List<InvatoryDto> inventory;
 
+    private List<ProductDto> products;
+
+
 }

@@ -86,4 +86,36 @@ public class AdminController {
     public void deleteInventory(@PathVariable Long id) {
         adminService.deleteInventory(id);
     }
+
+
+    // ---------------- Product ----------------
+
+
+    @GetMapping("/products")
+    public List<ProductDto> products() {
+        return adminService.products();
+    }
+
+    @GetMapping("/products/{id}")
+    public ProductDto product(@PathVariable Long id) {
+        return adminService.getProduct(id);
+    }
+
+    @PostMapping("/products")
+    public ProductDto createProduct(@RequestBody ProductDto dto) {
+        return adminService.createProduct(dto);
+    }
+
+    @PutMapping("/products/{id}")
+    public ProductDto updateProduct(
+            @PathVariable Long id,
+            @RequestBody ProductDto dto) {
+
+        return adminService.updateProduct(id, dto);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        adminService.deleteProduct(id);
+    }
 }
